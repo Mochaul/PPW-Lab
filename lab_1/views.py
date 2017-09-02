@@ -12,4 +12,4 @@ def index(request):
 # TODO Implement this to complete last checklist
 def calculate_age(birth_year):
     today = date.today()
-    return today.year - born.year
+    return today.year - birth_year
