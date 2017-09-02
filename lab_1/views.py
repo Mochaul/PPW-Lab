@@ -6,7 +6,7 @@ mhs_name = "Mochamad Aulia Akbar Praditomo"
 
 # Create your views here.
 def index(request):
-    response = {'name': mhs_name}
+    response = {'name': mhs_name,'age': calculate_age(1999)}
     return render(request, 'index.html', response)
 
 # TODO Implement this to complete last checklist
