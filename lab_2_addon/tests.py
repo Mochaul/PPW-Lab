@@ -4,7 +4,6 @@ from django.urls import resolve
 from django.http import HttpRequest
 from .views import bio_dict
 from .views import index_addon as index
-
 # Create your tests here.
 
 class Lab2AddonUnitTest(TestCase):
