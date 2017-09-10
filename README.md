@@ -2,6 +2,6 @@
 
 https://gitlab.com/Mochaul/RepoPPW
 
-# Heroku apps link 
+# Heroku apps link
 
-https://lab1-maap.herokuapp.com/
+https://labppw-maap.herokuapp.com/
