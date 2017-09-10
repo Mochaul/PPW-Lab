@@ -27,19 +27,13 @@ class Lab1UnitTest(TestCase):
         self.assertIn('<h1>Hello my name is ' + mhs_name + '</h1>', html_response)
         self.assertFalse(len(mhs_name) == 0)
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 5bb6d5d0f04a4f50a5e86d6d2a7c3cbe178b38aa
     def test_calculate_age_is_correct(self):
         self.assertEqual(0, calculate_age(date.today().year))
         self.assertEqual(17, calculate_age(2000))
         self.assertEqual(27, calculate_age(1990))
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 5bb6d5d0f04a4f50a5e86d6d2a7c3cbe178b38aa
     def test_index_contains_age(self):
         request = HttpRequest()
         response = index(request)
