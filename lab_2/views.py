@@ -3,7 +3,7 @@ from lab_1.views import mhs_name, birth_date
 
 #TODO Implement
 #Create a content paragraph for your landing page:
-landing_page_content = 'You know what they say,'
+landing_page_content = 'Welcome to my website. You know what they say,'
 
 def index(request):
     response = {'name': mhs_name, 'content': landing_page_content}
