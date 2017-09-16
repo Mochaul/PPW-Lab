@@ -18,8 +18,8 @@ from django.contrib import admin
 from django.views.generic.base import RedirectView
 import lab_1.urls as lab_1
 import lab_2.urls as lab_2
-import lab_2_addon.urls as lab_2_addon
 import lab_3.urls as lab_3
+import lab_2_addon.urls as lab_2_addon
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
