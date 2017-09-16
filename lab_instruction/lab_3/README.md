@@ -32,10 +32,10 @@ Setelah menyelesaikan tutorial ini, mahasiswa diharapkan untuk mengerti :
 ## Challenge Checklist
 
 Cukup kerjakan salah satu nya saja:
-1. [ ] Perbaikan Warna dan layout yang lebih rapi lagi untuk tampilan _Website_
-2. [ ] Berikan _Input Validation_, ketika Input untuk tanggal tidak sesuai format, maka data tidak tersimpan
+1. [X] Perbaikan Warna dan layout yang lebih rapi lagi untuk tampilan _Website_
+2. [X] Berikan _Input Validation_, ketika Input untuk tanggal tidak sesuai format, maka data tidak tersimpan
 (Saat ini yang dilakukan oleh program adalah memberikan _stacktrace error_. Hal ini biasanya terjadi di _browser_ Mozilla)
 Validasi perlu dilakukan selain di browser (HTML5 atau Java-Script) dan
-3. [ ] _Input Validation_ di-server dalam bentuk
+3. [X] _Input Validation_ di-server dalam bentuk
 exception handling (sebagai bagian dari _best-practices_ yang salah satu manfaatnya
 untuk antisipasi _injection_).
