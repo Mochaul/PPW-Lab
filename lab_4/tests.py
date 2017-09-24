@@ -96,4 +96,4 @@ class Lab4UnitTest(TestCase):
             self.assertIn(data,html_response)
 
         self.assertIn('Anonymous', html_response)
-        self.assertIn(message_anonymous, html_response
+        self.assertIn(message_anonymous, html_response)
