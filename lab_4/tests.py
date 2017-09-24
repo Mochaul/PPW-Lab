@@ -55,11 +55,11 @@ class Lab4UnitTest(TestCase):
             ["This field is required."]
         )
 
-     def test_lab4_post_fail(self):
+    def test_lab4_post_fail(self):
             response = Client().post('/lab-4/add_message', {'name': 'Anonymous', 'email': 'A', 'message': ''})
             self.assertEqual(response.status_code, 302)
 
-     def test_lab4_post_success_and_render_the_result(self):
+    def test_lab4_post_success_and_render_the_result(self):
         anonymous = 'Anonymous'
         message = 'HaiHai'
         response = Client().post('/lab-4/add_message', {'name': '', 'email': '', 'message': message})
