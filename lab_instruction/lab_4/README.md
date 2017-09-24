@@ -1,4 +1,4 @@
-/TOTAL\s+\d+\s+\d+\s+(\d+)%/
+TOTAL\s+\d+\s+\d+\s+(\d+)%
 
 # Lab 4: Pengenalan _HTML5_
 
