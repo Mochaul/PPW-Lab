@@ -102,6 +102,3 @@ class Lab4UnitTest(TestCase):
         response = Client().get('/')
         self.assertEqual(response.status_code, 301)
         self.assertRedirects(response,'/lab-4/',301,200)
-
-    def test_print_message(self):
-        self.assertEqual(print(Message), None)
