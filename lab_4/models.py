@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+import pytz
 
 class Message(models.Model):
     def convertTZ():
@@ -10,5 +11,5 @@ class Message(models.Model):
     message = models.TextField()
     created_date = models.DateTimeField(default=convertTZ)
 
-    #def __str__(self):
-        #return self.message
+    def __str__(self):
+        return self.message
