@@ -1,5 +1,5 @@
 body {
-  min-height: 2000px;
+
 }
 
 .navbar-static-top {
@@ -8,7 +8,8 @@ body {
 
 .img-circle {
     border-radius: 50%;
-    
+    display: block;
+    margin: 0 auto;
 }
 
 /*Textarea not resizeable*/

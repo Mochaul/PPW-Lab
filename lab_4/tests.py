@@ -103,3 +103,11 @@ class Lab4UnitTest(TestCase):
         response = Client().get('/')
         self.assertEqual(response.status_code, 301)
         self.assertRedirects(response,'/lab-4/',301,200)
+
+    def test_navbar_is_exist(self):
+        response = Client().get('/lab-4/')
+        self.assertTemplateUsed(response, 'lab_4/partials/header.html')
+
+    def test_copyright_is_exist(self):
+        response = Client().get('/lab-4/')
+        self.assertTemplateUsed(response, 'lab_4/partials/footer.html')
