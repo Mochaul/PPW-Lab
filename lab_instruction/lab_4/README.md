@@ -1,5 +1,3 @@
-TOTAL\s+\d+\s+\d+\s+(\d+)%
-
 # Lab 4: Pengenalan _HTML5_
 
 CSGE602022 - Web Design & Programming (Perancangan & Pemrograman Web) @
