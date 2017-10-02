@@ -8,6 +8,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 
+
 # Create your tests here.
 class Lab5UnitTest(TestCase):
 
@@ -59,6 +60,7 @@ class Lab5UnitTest(TestCase):
         html_response = response.content.decode('utf8')
         self.assertNotIn(test, html_response)
 
+
 class Lab5FunctionalTest(TestCase):
 
     def setUp(self):
@@ -68,8 +70,7 @@ class Lab5FunctionalTest(TestCase):
         chrome_options.add_argument('--headless')
         chrome_options.add_argument('disable-gpu')
         self.selenium  = webdriver.Chrome('./chromedriver', chrome_options=chrome_options)
-        super(Lab5UnitTest, self).setUp()
-
+        super(Lab5FunctionalTest, self).setUp()
 
     def tearDown(self):
         self.selenium.quit()

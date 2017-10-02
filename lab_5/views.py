@@ -6,7 +6,7 @@ from .models import Todo
 # Create your views here.
 response = {}
 def index(request):
-    response['author'] = "" #TODO Implement yourname
+    response['author'] = "Mochaul" #TODO Implement yourname
     todo = Todo.objects.all()
     response['todo'] = todo
     html = 'lab_5/lab_5.html'
