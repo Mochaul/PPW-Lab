@@ -4,7 +4,9 @@ var erase = false;
 
 var go = function(x) {
   if (x === 'ac') {
-    /* implemetnasi clear all */
+    /* implementasi clear all */
+    print.value = null;
+    erase = false;
   } else if (x === 'eval') {
       print.value = Math.round(evil(print.value) * 10000) / 10000;
       erase = true;
