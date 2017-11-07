@@ -6,92 +6,101 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="LAB 5">
+    <meta name="description" content="LAB 6">
     <meta name="author" content="{{author}}">
     <!-- bootstrap csss -->
-    <!-- Jquery n Bootstrap Script -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script type="application/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="{% static 'js/lab_6.js' %}"></script>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'css/lab_6.css' %}" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.4.1.css">
     <title>
         {% block title %} Lab 6 By {{author}} {% endblock %}
     </title>
 </head>
 <body>
-    <header>
-        {% include "lab_6/partials/header.html" %}
-    </header>
-    <content>
-            {% block content %}
-                <!-- content goes here -->
-            {% endblock %}
-    </content>
-    <footer>
-        <!-- TODO Block Footer dan include footer.html -->
-        {% block footer %}
-        {% include "lab_6/partials/footer.html" %}
-        {% endblock %}
-    </footer>
-    <!-- Jquery n Bootstrap Script -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script type="application/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<header>
+    {% include "lab_6/partials/header.html" %}
+</header>
+<content>
+    <div id="qunit" hidden></div>
 
-      <!-- Calculator Section -->
-    <section class="calculator">
-      <div class="container">
-          <div class="model col-lg-5">
-              <div class="container-fluid">
-                  <div class="row" id="title">
-                      <h1 class="text-center">
-                          CALCULATOR
-                      </h1>
-                  </div>
-                  <div class="row" id="calcs-section">
-                      <div class="row">
-                          <input id="print" type="text" readonly="readonly" class="form-control text-right calcs" id="usr">
-                      </div>
-                  </div>
-                  <!-- Adapted from Tom Howard -->
-                  <div class="row" id="calc-buttons">
-                      <div class="row">
-                          <button class="btn btn-lg btn-default col-xs-3" onClick="go('ac');">AC</button>
-                          <!-- <button class="btn btn-lg btn-default col-xs-3" onClick="go('log');">log</button> -->
-                          <!-- <button class="btn btn-lg btn-default col-xs-3" onClick="go('sin');">sin</button> -->
-                          <!-- <button class="btn btn-lg btn-default col-xs-3" onClick="go('tan');">tan</button> -->
-                      </div>
-                      <div class="row">
-                          <button class="btn btn-lg btn-default col-xs-3" onClick="go(7);">7</button>
-                          <button class="btn btn-lg btn-default col-xs-3" onClick="go(8);">8</button>
-                          <button class="btn btn-lg btn-default col-xs-3" onClick="go(9);">9</button>
-                          <button class="btn btn-lg btn-default col-xs-3" onClick="go(' * ');">*</button>
-                      </div>
-                      <div class="row">
-                          <button class="btn btn-lg btn-default col-xs-3" onClick="go(4);">4</button>
-                          <button class="btn btn-lg btn-default col-xs-3" onClick="go(5);">5</button>
-                          <button class="btn btn-lg btn-default col-xs-3" onClick="go(6);">6</button>
-                          <button class="btn btn-lg btn-default col-xs-3" onClick="go(' - ');">-</button>
-                      </div>
-                      <div class="row">
-                          <button class="btn btn-lg btn-default col-xs-3" onClick="go(1);">1</button>
-                          <button class="btn btn-lg btn-default col-xs-3" onClick="go(2);">2</button>
-                          <button class="btn btn-lg btn-default col-xs-3" onClick="go(3);">3</button>
-                          <button class="btn btn-lg btn-default col-xs-3" onClick="go(' + ');">+</button>
-                      </div>
-                      <div class="row">
-                          <button class="btn btn-lg btn-default col-xs-3" onClick="go(0);">0</button>
-                          <button class="btn btn-lg btn-default col-xs-3" onClick="go('.');">.</button>
-                          <button class="btn btn-lg btn-default col-xs-3" onClick="go('eval');">=</button>
-                          <button class="btn btn-lg btn-default col-xs-3" onClick="go(' / ');">/</button>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
+    <!-- Themes -->
+    <div class="container">
+    <h1 class="text-center">Calculator</h1>
+    <select style="width: 200px;" class="my-select"></select>
+    <br/><button class="btn apply-button">Change Theme</button>
+    </div>
+
+
+    <!-- Calculator Section -->
+    <section name="Calculator" class="calculator">
+        <div class="container">
+            <div class="model col-lg-5">
+                <div class="container-fluid">
+                    <div class="row" id="title">
+                        <h2 class="text-center">
+                            CALCULATOR
+                        </h2>
+                    </div>
+                    <div class="row" id="calcs-section">
+                        <div class="row">
+                            <input id="print" type="text" readonly="readonly" class="form-control text-right calcs" id="usr">
+                        </div>
+                    </div>
+                    <!-- Adapted from Tom Howard -->
+                    <div class="row" id="calc-buttons">
+                        <div class="row">
+                            <button class="btn btn-lg btn-default col-xs-3" onClick="go('ac');">AC</button>
+                            <button class="btn btn-lg btn-default col-xs-3" onClick="go('log');">log</button>
+                            <button class="btn btn-lg btn-default col-xs-3" onClick="go('sin');">sin</button>
+                            <button class="btn btn-lg btn-default col-xs-3" onClick="go('tan');">tan</button>
+                        </div>
+                        <div class="row">
+                            <button class="btn btn-lg btn-default col-xs-3" onClick="go(7);">7</button>
+                            <button class="btn btn-lg btn-default col-xs-3" onClick="go(8);">8</button>
+                            <button class="btn btn-lg btn-default col-xs-3" onClick="go(9);">9</button>
+                            <button class="btn btn-lg btn-default col-xs-3" onClick="go(' * ');">*</button>
+                        </div>
+                        <div class="row">
+                            <button class="btn btn-lg btn-default col-xs-3" onClick="go(4);">4</button>
+                            <button class="btn btn-lg btn-default col-xs-3" onClick="go(5);">5</button>
+                            <button class="btn btn-lg btn-default col-xs-3" onClick="go(6);">6</button>
+                            <button class="btn btn-lg btn-default col-xs-3" onClick="go(' - ');">-</button>
+                        </div>
+                        <div class="row">
+                            <button class="btn btn-lg btn-default col-xs-3" onClick="go(1);">1</button>
+                            <button class="btn btn-lg btn-default col-xs-3" onClick="go(2);">2</button>
+                            <button class="btn btn-lg btn-default col-xs-3" onClick="go(3);">3</button>
+                            <button class="btn btn-lg btn-default col-xs-3" onClick="go(' + ');">+</button>
+                        </div>
+                        <div class="row">
+                            <button class="btn btn-lg btn-default col-xs-3" onClick="go(0);">0</button>
+                            <button class="btn btn-lg btn-default col-xs-3" onClick="go('.');">.</button>
+                            <button class="btn btn-lg btn-default col-xs-3" onClick="go('eval');">=</button>
+                            <button class="btn btn-lg btn-default col-xs-3" onClick="go(' / ');">/</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
+    {% block content %}
+    {% endblock %}
+
+</content>
+<footer>
+    <!-- TODO Block Footer dan include footer.html -->
+    {% block footer %}
+    {% include "lab_6/partials/footer.html" %}
+    {% endblock %}
+</footer>
+<!-- Jquery n Bootstrap Script -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="application/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
+<script src="{% static 'js/lab_6.js' %}"></script>
+<script src="{% static 'js/test.js' %}"></script>
+<script src="https://code.jquery.com/qunit/qunit-2.4.1.js"></script>
 </body>
