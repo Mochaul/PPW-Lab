@@ -6,6 +6,17 @@ $(chathead).click(function(){
     $(chatbody).toggle();
 });
 
+function keyPress(e) {
+  e == e || window.event;
+  if(e.keyCode == 13) {
+    var text = document.getElementById('chat-textarea').value;
+      document.getElementById("msg-insert").innerHTML += text + "<br>";
+      document.getElementById('chat-textarea').value = null;
+      return false;
+  }
+  return true;
+}
+
 // END
 
 // Calculator
