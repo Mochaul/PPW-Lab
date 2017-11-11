@@ -1,11 +1,10 @@
 // Chatbox
-var chathead = document.getElementsByClassName('chat-head');
-var chatbody = document.getElementsByClassName('chat-body');
 
-$(chathead).click(function(){
-    $(chatbody).toggle();
+$('.chat-head').click(function(){
+    $('.chat-body').toggle();
 });
 
+$('#chat-textarea').val()
 function keyPress(e) {
   e == e || window.event;
   if(e.keyCode == 13) {
