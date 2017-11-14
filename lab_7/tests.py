@@ -31,7 +31,7 @@ class lab7UnitTest(TestCase):
 
 	def test_friend_description_url_is_exist(self):
 	    friend = Friend.objects.create(friend_name="Pina Korata", npm="1606123456")
-	    response = Client().post('/lab-7/detail/' + str(friend.id) + '/')
+	    response = Client().post('/lab-7/description/' + str(friend.id) + '/')
 	    self.assertEqual(response.status_code, 200)
 
 	def test_auth_param_dict(self):
