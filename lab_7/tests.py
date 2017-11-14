@@ -46,6 +46,14 @@ class lab7UnitTest(TestCase):
 	    )
 	    self.assertEqual(response_post.status_code, 200)
 
+	def test_invalid_sso(self):
+	    csui_helper = CSUIhelper()
+	    csui_helper.instance.username = "maap"
+	    csui_helper.instance.password = "maap"
+	    with self.assertRaises(Exception) as context:
+	        csui_helper.instance.get_access_token()
+	    self.assertIn("maap", str(context.exception))
+
 	def test_validate_npm(self):
 	    response = self.client.post('/lab-7/validate-npm/')
 	    html_response = response.content.decode('utf8')
