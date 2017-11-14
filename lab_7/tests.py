@@ -62,7 +62,7 @@ class lab7UnitTest(TestCase):
 
 	def test_delete_friend(self):
 	    friend = Friend.objects.create(friend_name="Pina Korata", npm="1606123456")
-	    response = Client().post('/lab-7/delete/' + str(friend.id) + '/')
+	    response = Client().post('/lab-7/delete-friend/' + str(friend.id) + '/')
 	    self.assertEqual(response.status_code, 302)
 	    self.assertNotIn(friend, Friend.objects.all())
 
