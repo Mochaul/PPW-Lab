@@ -46,6 +46,10 @@
                         </ul>
                     {% endif %}
                 </div>
+                {% if auth %}
+                    <div id="token" hidden="true">{{ auth.access_token }}</div>
+                    <div id="cid" hidden="true">{{ auth.client_id }}</div>
+                {% endif %}
             </div>
             <div class="col-lg-4">
                 <h2> Teman Saya </h2>
@@ -77,6 +81,8 @@
 {% endblock %}
 {% block javascript %}
 <script>
+    var token = document.getElementById("token").innerHTML;
+    var cid = document.getElementById("cid").innerHTML;
     var addFriend = function(nama, npm, alamat, ttl, prodi) {
         $.ajax({
             method: "POST",
@@ -84,9 +90,9 @@
             data: { name: nama, npm: npm, alamat: alamat, ttl: ttl, prodi: prodi},
             success : function (friend) {
                 html = '<a class="list-group-item clearfix">' +
-                    nama + " (" + npm + ")"
-                    '</a>';
+                        nama + ' (' + npm +')</a>';
                 $("#friend-list").append(html)
+                $(".alert").hide();
             },
             error : function (error) {
                 alert("Mahasiswa tersebut sudah ditambahkan sebagai teman")
@@ -95,9 +101,24 @@
     };
 
     $("#add-friend").on("submit", function (event) {
-       name = $("#field_name").val()
-       npm = $("#field_npm").val()
-        addFriend(name, npm)
+        var npm = $("#field_npm").val();
+        var corsProxy = 'https://cors-anywhere.herokuapp.com/';
+        var obj = new Object(); obj.access_token = token; obj.client_id = cid;
+        var param = $.param(obj);
+        $.ajax({
+            method: "GET",
+            url: corsProxy+'https://api-dev.cs.ui.ac.id/siakngcs/mahasiswa/'+npm+'/?'+param,
+            success: function(data) {
+                addFriend(data.nama, data.npm, data.alamat_mhs,
+                          data.kota_lahir+", "+data.tgl_lahir,
+                          data.program[0].nm_org+" ("+data.program[0].nm_prg+")"
+                )
+            },
+            error: function(error) {
+                console.log(error)
+                alert("\n\t\t\tNPM tidak valid:\n\n'Tidak ada mahasiswa dengan NPM tersebut'")
+            }
+        });
         event.preventDefault();
     });
 
@@ -114,7 +135,7 @@
             success: function (data) {
                 console.log(data)
                 if (data.is_taken) {
-                    alert("Mahasiswa dengan npm seperti ini sudah ada");
+                    alert("Mahasiswa dengan NPM tersebut sudah menjadi teman");
                 }
             }
         });

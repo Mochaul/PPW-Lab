@@ -9,7 +9,6 @@ from .api_csui_helper.csui_helper import CSUIhelper
 import os
 import json
 
-author = "MAAP"
 response = {}
 csui_helper = CSUIhelper()
 
@@ -18,13 +17,14 @@ def index(request):
 	# TODO berikan akses token dari backend dengan menggunakaan helper yang ada
 	mahasiswa_list = csui_helper.instance.get_mahasiswa_list()
 	friend_list = Friend.objects.all()
+	auth = csui_helper.instance.get_auth_param_dict()
 	#Paginator
 	page = request.GET.get('page', 1)
 	paginate_data = paginate_page(page, mahasiswa_list)
 	mahasiswa = paginate_data['data']
 	page_range = paginate_data['page_range']
 
-	response = {"mahasiswa_list": mahasiswa, "friend_list": friend_list, "page_range": page_range, "author": author}
+	response = {"mahasiswa_list": mahasiswa, "friend_list": friend_list, "page_range": page_range, "auth": auth}
 	html = 'lab_7/lab_7.html'
 	return render(request, html, response)
 
