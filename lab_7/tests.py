@@ -45,14 +45,6 @@ class lab7UnitTest(TestCase):
 		)
 		self.assertEqual(response_post.status_code, 200)
 
-	def test_invalid_sso_raise_exception(self):
-		username = "imran"
-		password = "imran"
-		csui_helper = CSUIhelper()
-		with self.assertRaises(Exception) as context:
-			csui_helper.instance.get_access_token(username, password)
-		self.assertIn("imran", str(context.exception))
-
 	def test_validate_npm(self):
 		response = self.client.post('/lab-7/validate-npm/')
 		html_response = response.content.decode('utf8')
@@ -64,12 +56,3 @@ class lab7UnitTest(TestCase):
 		response = Client().post('/lab-7/friend-list/delete-friend/' + str(friend.id) + '/')
 		self.assertEqual(response.status_code, 302)
 		self.assertNotIn(friend, Friend.objects.all())
-
-	# def test_invalid_page_pagination_number(self):
-	# 	data = ["asik", "hehe", "seru", "asik", "hehe", "seru", "asik", "hehe", "seru", "asik"]
-	# 	with self.assertRaises(PageNotAnInteger) as a:
-	# 		paginate_page("...", data)
-	# 	with self.assertRaises(EmptyPage) as b:
-	# 		paginate_page(-1, data)
-	# 	self.assertIn("page number is not an integer", str(a.exception))
-	# 	self.assertIn("page number is less than 1", str(b.exception))
