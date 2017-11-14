@@ -30,7 +30,7 @@ class CSUIhelper:
 
                 return response.json()["access_token"]
             except Exception:
-                raise Exception("username atau password sso salah, input : [{}, {}] {}".format(username, password, os.environ.items()))
+                raise Exception("username atau password sso salah, input : [{}, {}] {}".format(self.username, self.password, os.environ.items()))
 
         def get_client_id(self):
             return self.client_id
