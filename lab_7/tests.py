@@ -42,7 +42,7 @@ class lab7UnitTest(TestCase):
 	def test_add_friend(self):
 		response_post = Client().post(
 			'/lab-7/add-friend/',
-			{'name':"imran", 'npm':"1606", 'alamat':" ", 'ttl':" ", 'prodi':" "}
+			{'name':"maap", 'npm':"1606", 'alamat':" ", 'ttl':" ", 'prodi':" "}
 		)
 		self.assertEqual(response_post.status_code, 200)
 
