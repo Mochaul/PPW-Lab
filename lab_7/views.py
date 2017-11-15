@@ -9,6 +9,7 @@ from .api_csui_helper.csui_helper import CSUIhelper
 import os
 import json
 
+author = "Mochaul"
 response = {}
 csui_helper = CSUIhelper()
 
@@ -24,7 +25,7 @@ def index(request):
 	mahasiswa = paginate_data['data']
 	page_range = paginate_data['page_range']
 
-	response = {"mahasiswa_list": mahasiswa, "friend_list": friend_list, "page_range": page_range, "auth": auth}
+	response = {"mahasiswa_list": mahasiswa, "friend_list": friend_list, "page_range": page_range, "auth": auth, "author": author}
 	html = 'lab_7/lab_7.html'
 	return render(request, html, response)
 

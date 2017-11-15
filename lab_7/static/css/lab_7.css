@@ -1,5 +1,6 @@
 body{
    margin-top: 70px;
+   background-color: #bcd2d0;
 }
 /* Custom navbar style */
 .navbar-static-top {
@@ -11,4 +12,8 @@ body{
 /* Textarea not resizeable */
 textarea {
    resize:none
+}
+
+button {
+  background-color: #e1e9b7;
 }
