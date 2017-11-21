@@ -1,7 +1,7 @@
 // FB initiation function
 window.fbAsyncInit = () => {
   FB.init({
-    appId      : '310571496016407',
+    appId      : '161866164414597',
     cookie     : true,
     xfbml      : true,
     version    : 'v2.11'
@@ -49,45 +49,59 @@ const render = (loginFlag) => {
     getUserData(user => {
       // Render tampilan profil, form input post, tombol post status, dan tombol logout
       $('#lab8').html(
-        '<div class="profile">' +
-          '<img class="cover" src="' + user.cover.source + '" alt="cover" />' +
-          '<img class="picture" src="' + user.picture.data.url + '" alt="profpic" />' +
-          '<div class="data">' +
-            '<h1>' + user.name + '</h1>' +
-            '<h2>' + user.about + '</h2>' +
-            '<h3>' + user.email + ' - ' + user.gender + '</h3>' +
+        '<div class="user-profile">' +
+          '<div class="cover"><img src="'+ user.cover.source +'" width="851px"/></div>' +
+          '<div class="picture"><img src="' + user.picture.data.url + '"/></div>' +
+          '<div class="name">' + user.name + '</div>' +
+          '<div id="logout-btn">' + 
+            '<button class="btn btn-primary logout" onclick="facebookLogout()">Logout</button>' +
           '</div>' +
-        '</div>' +
-        '<input id="postInput" type="text" class="post" placeholder="Ketik Status Anda" />' +
-        '<button class="postStatus" onclick="postStatus()">Post ke Facebook</button>' +
-        '<button class="logout" onclick="facebookLogout()">Logout</button>'
+          '<div class="about">' +
+            '<div>' +
+              '<img src="https://png.icons8.com/user/win10/25/000000"> <b>About Me</b>' +
+              '<div>' + user.about + '</div>' +
+            '</div>' +
+            '<div><img src="https://png.icons8.com/message-filled/win10/25/000000"> <b>E-mail</b>' +
+              '<div>' + user.email + '</div>' +
+            '</div>' +
+            '<div><img src="https://png.icons8.com/gender/win10/25/000000"> <b>Gender</b>' + 
+              '<div>' + capitalize(user.gender) + '</div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="well">' +
+            '<form class="form-horizontal" role="form">' +
+              '<div class="form-group" style="padding:14px;">' +
+              '<textarea id="postInput" class="form-control" placeholder="What\'s on your mind?"></textarea>' +
+              '</div>' +
+              '<button class="btn btn-primary pull-right" type="button" onclick="postStatus()">Post</button>' +
+            '</form>' +
+          '</div>' +
+          '<div class="status"></div>' +
+        '</div>'
       );
 
       // Setelah merender tampilan di atas, dapatkan data home feed dari akun yang login
-      // dengan memanggil method getUserFeed yang kalian implementasi sendiri.
+      // dengan memanggil method getUserPosts yang kalian implementasi sendiri.
       // Method itu harus menerima parameter berupa fungsi callback, dimana fungsi callback
       // ini akan menerima parameter object feed yang merupakan response dari pemanggilan API Facebook
-      getUserFeed(feed => {
+      getUserPosts(feed => {
         feed.data.map(value => {
           // Render feed, kustomisasi sesuai kebutuhan.
-          if (value.message && value.story) {
-            $('#lab8').append(
-              '<div class="feed">' +
-                '<h1>' + value.message + '</h1>' +
-                '<h2>' + value.story + '</h2>' +
-              '</div>'
-            );
-          } else if (value.message) {
-            $('#lab8').append(
-              '<div class="feed">' +
-                '<h1>' + value.message + '</h1>' +
-              '</div>'
-            );
-          } else if (value.story) {
-            $('#lab8').append(
-              '<div class="feed">' +
-                '<h2>' + value.story + '</h2>' +
-              '</div>'
+          if (value.message) {
+            var parsedDate = moment(value.created_time).tz("Asia/Jakarta").fromNow();
+            $(".status").append(
+                '<div class="list-status">' +
+                  '<div class="mini-photo">' +
+                      '<img class = "img-circle" id="status-photo" src="' + picture +'" style="width:50px;">' +
+                      '<strong id="user-name">' + name + '</strong>' +
+                  '</div>' +
+                  '<div class="statuses">' +
+                      value.message  +
+                  '</div>' +
+                  '<div class="status-date">' +
+                      parsedDate +
+                 '</div>' +
+                '</div>'
             );
           }
         });
@@ -95,7 +109,11 @@ const render = (loginFlag) => {
     });
   } else {
     // Tampilan ketika belum login
-    $('#lab8').html('<button class="login" onclick="facebookLogin()">Login</button>');
+    $('#lab8').html(
+      '<div id="login-btn">' + 
+        '<button class="btn btn-primary btn-lg login" onclick="facebookLogin()">Login with Facebook</button>' +
+      '</div>'
+    );
   }
 };
 
@@ -107,7 +125,7 @@ const facebookLogin = () => {
   FB.login(function(response){
      console.log(response);
      render(true);
-  }, {scope:'public_profile,user_posts,publish_actions'})
+  }, {scope:'public_profile,user_posts,publish_actions,user_about_me,email'})
 };
 
 const facebookLogout = () => {
@@ -124,25 +142,30 @@ const facebookLogout = () => {
 
 // TODO: Lengkapi Method Ini
 // Method ini memodifikasi method getUserData di atas yang menerima fungsi callback bernama fun
-// lalu merequest data user dari akun yang sedang login dengan semua fields yang dibutuhkan di
-// method render, dan memanggil fungsi callback tersebut setelah selesai melakukan request dan
+// lalu merequest data user dari akun yang sedang login dengan semua fields yang dibutuhkan di 
+// method render, dan memanggil fungsi callback tersebut setelah selesai melakukan request dan 
 // meneruskan response yang didapat ke fungsi callback tersebut
 // Apakah yang dimaksud dengan fungsi callback?
 const getUserData = (fun) => {
   FB.getLoginStatus(function(response) {
       if (response.status === 'connected') {
-        FB.api('/me?fields=id,name,about,email,gender,cover,picture ', 'GET', function(response){
+        FB.api('/me?fields=id,name,about,email,gender,cover,picture.width(168).height(168)', 'GET', function(response){
           console.log(response);
           if (response && !response.error) {
             /* handle the result */
+            picture = response.picture.data.url;
+            name = response.name;
             fun(response);
+          }
+          else {
+            alert("Something went wrong");
           }
         });
       }
   });
 };
 
-const getUserFeed = (fun) => {
+const getUserPosts = (fun) => {
   // TODO: Implement Method Ini
   // Pastikan method ini menerima parameter berupa fungsi callback, lalu merequest data Home Feed dari akun
   // yang sedang login dengan semua fields yang dibutuhkan di method render, dan memanggil fungsi callback
@@ -150,11 +173,14 @@ const getUserFeed = (fun) => {
   // tersebut
   FB.getLoginStatus(function(response) {
       if (response.status === 'connected') {
-        FB.api('/me/feed', 'GET', function(response){
+        FB.api('/me/posts', 'GET', function(response){
           console.log(response);
           if (response && !response.error) {
             /* handle the result */
             fun(response);
+          }
+          else {
+            alert("Something went wrong");
           }
         });
       }
@@ -166,9 +192,17 @@ const postFeed = (message) => {
   // Pastikan method ini menerima parameter berupa string message dan melakukan Request POST ke Feed
   // Melalui API Facebook dengan message yang diterima dari parameter.
    FB.api('/me/feed', 'POST', {message:message});
+   render(true);
 };
 
 const postStatus = () => {
   const message = $('#postInput').val();
+  $('#postInput').val("");
   postFeed(message);
 };
+
+const capitalize = (str) => {
+  return str.charAt(0).toUpperCase() + str.substring(1, str.length);
+}
+
+var picture, name;
