@@ -8,7 +8,13 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="{% url 'lab-8:index' %}">Lab 8 Home</a>
+      <a class="navbar-brand" href="{% url 'lab-7:index' %}">Beranda</a>
     </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <!-- LINK MENUJU table, dan link menuju home#form -->
+        <li><a href="{% url 'lab-7:friend-list' %}">Daftar Teman</a></li>
+      </ul>
+    </div><!--/.nav-collapse -->
   </div>
 </nav>
