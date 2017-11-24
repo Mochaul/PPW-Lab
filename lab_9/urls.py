@@ -27,4 +27,9 @@ urlpatterns = [
     url(r'^cookie/profile/$', cookie_profile, name='cookie_profile'),
     url(r'^cookie/clear/$', cookie_clear, name='cookie_clear'), #sekaligus logout dari cookie
 
+    #general function : solution to challenge
+    url(r'^add_session_item/(?P<key>\w+)/(?P<id>\d+)/$', add_session_item, name='add_session_item'),
+    url(r'^del_session_item/(?P<key>\w+)/(?P<id>\d+)/$', del_session_item, name='del_session_item'),
+    url(r'^clear_session_item/(?P<key>\w+)/$', clear_session_item, name='clear_session_item'),
+
 ]
