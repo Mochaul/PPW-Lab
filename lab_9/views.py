@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib import messages
 #catatan: tidak bisa menampilkan messages jika bukan menggunakan method 'render'
-from .api_enterkomputer import get_drones
+from .api_enterkomputer import get_drones, get_soundcards, get_opticals
 
 response = {}
 
@@ -16,12 +16,13 @@ response = {}
 
 # ======================================================================== #
 # User Func
-# Apa yang dilakukan fungsi INI? #silahkan ganti ini dengan penjelasan kalian 
+# Apa yang dilakukan fungsi INI? #silahkan ganti ini dengan penjelasan kalian
 def index(request):
     print ("#==> masuk index")
     if 'user_login' in request.session:
         return HttpResponseRedirect(reverse('lab-9:profile'))
     else:
+        response['login'] = False
         html = 'lab_9/session/login.html'
         return render(request, html, response)
 
@@ -30,7 +31,10 @@ def set_data_for_session(res, request):
     response['access_token'] = request.session['access_token']
     response['kode_identitas'] = request.session['kode_identitas']
     response['role'] = request.session['role']
+    response['login'] = True
     response['drones'] = get_drones().json()
+    response['soundcards'] = get_soundcards().json()
+    response['opticals'] = get_opticals().json()
 
     # print ("#drones = ", get_drones().json(), " - response = ", response['drones'])
     ## handling agar tidak error saat pertama kali login (session kosong)
@@ -40,6 +44,14 @@ def set_data_for_session(res, request):
     # sebelumnya yang ada pada response, sehingga data tidak up-to-date
     else:
         response['fav_drones'] = []
+    if 'soundcards' in request.session.keys():
+        response['fav_soundcards'] = request.session['soundcards']
+    else:
+        response['fav_soundcards'] = []
+    if 'opticals' in request.session.keys():
+        response['fav_opticals'] = request.session['opticals']
+    else:
+        response['fav_opticals'] = []
 
 def profile(request):
     print ("#==> profile")
@@ -92,9 +104,46 @@ def clear_session_drones(request):
     return HttpResponseRedirect(reverse('lab-9:profile'))
 
 # ======================================================================== #
+
+### General Function
+def add_session_item(request, key, id):
+    print ("#ADD session item")
+    ssn_key = request.session.keys()
+    if not key in ssn_key:
+        request.session[key] = [id]
+    else:
+        items = request.session[key]
+        if id not in items:
+            items.append(id)
+            request.session[key] = items
+
+    msg = "Berhasil tambah " + key[:-1] +" favorite"
+    messages.success(request, msg)
+    return HttpResponseRedirect(reverse('lab-9:profile'))
+
+def del_session_item(request, key, id):
+    print ("# DEL session item")
+    items = request.session[key]
+    print ("before = ", items)
+    items.remove(id)
+    request.session[key] = items
+    print ("after = ", items)
+
+    msg = "Berhasil hapus item " + key[:-1] + " dari favorite"
+    messages.error(request, msg)
+    return HttpResponseRedirect(reverse('lab-9:profile'))
+
+def clear_session_item(request, key):
+    del request.session[key]
+    msg = "Berhasil hapus session : favorite " + key
+    messages.error(request, msg)
+    return HttpResponseRedirect(reverse('lab-9:index'))
+
+# ======================================================================== #
+
 # COOKIES
 
-# Apa yang dilakukan fungsi INI? #silahkan ganti ini dengan penjelasan kalian 
+# Apa yang dilakukan fungsi INI? #silahkan ganti ini dengan penjelasan kalian
 def cookie_login(request):
     print ("#==> masuk login")
     if is_login(request):
@@ -133,7 +182,7 @@ def cookie_profile(request):
     else:
         # print ("cookies => ", request.COOKIES)
         in_uname = request.COOKIES['user_login']
-        in_pwd= request.COOKIES['user_password']
+        in_pwd = request.COOKIES['user_password']
 
         # jika cookie diset secara manual (usaha hacking), distop dengan cara berikut
         # agar bisa masuk kembali, maka hapus secara manual cookies yang sudah diset
@@ -149,9 +198,10 @@ def cookie_profile(request):
             return render(request, html, response)
 
 def cookie_clear(request):
-    res = HttpResponseRedirect('/lab-9/cookie/login')
+    res = HttpResponseRedirect(reverse('lab-9:cookie_login'))
     res.delete_cookie('lang')
     res.delete_cookie('user_login')
+    res.delete_cookie('user_password')
 
     msg = "Anda berhasil logout. Cookies direset"
     messages.info(request, msg)
@@ -163,43 +213,6 @@ def my_cookie_auth(in_uname, in_pwd):
     my_pwd = "ptest" #SILAHKAN ganti dengan PASSWORD yang kalian inginkan
     return in_uname == my_uname and in_pwd == my_pwd
 
-#Apa yang dilakukan fungsi ini? 
+#Apa yang dilakukan fungsi ini?
 def is_login(request):
     return 'user_login' in request.COOKIES and 'user_password' in request.COOKIES
-    
-# CHALLENGE
-### General Function
-def add_session_item(request, key, id):
-    print ("#ADD session item")
-    ssn_key = request.session.keys()
-    if not key in ssn_key:
-        request.session[key] = [id]
-    else:
-        items = request.session[key]
-        if id not in items:
-            items.append(id)
-            request.session[key] = items
-
-    msg = "Berhasil tambah " + key +" favorite"
-    messages.success(request, msg)
-    return HttpResponseRedirect(reverse('lab-9:profile'))
-
-def del_session_item(request, key, id):
-    print ("# DEL session item")
-    items = request.session[key]
-    print ("before = ", items)
-    items.remove(id)
-    request.session[key] = items
-    print ("after = ", items)
-
-    msg = "Berhasil hapus item " + key + " dari favorite"
-    messages.error(request, msg)
-    return HttpResponseRedirect(reverse('lab-9:profile'))
-
-def clear_session_item(request, key):
-    del request.session[key]
-    msg = "Berhasil hapus session : favorite " + key
-    messages.error(request, msg)
-    return HttpResponseRedirect(reverse('lab-9:index'))
-
-# ======================================================================== #

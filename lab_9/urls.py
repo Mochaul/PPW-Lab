@@ -1,7 +1,6 @@
 from django.conf.urls import url
-from .views import index, profile, \
-    add_session_drones, del_session_drones, clear_session_drones, \
-    cookie_login, cookie_auth_login, cookie_profile, cookie_clear
+from .views import (index, profile, add_session_drones, del_session_drones, clear_session_drones,
+                    cookie_login, cookie_auth_login, cookie_profile, cookie_clear)
 
 # sol to challenge
 from .views import add_session_item, del_session_item, clear_session_item
@@ -18,7 +17,7 @@ urlpatterns = [
 
     #add/delete drones
     url(r'^add_session_drones/(?P<id>\d+)/$', add_session_drones, name='add_session_drones'),
-    url(r'^del_session_drones/(?P<id>\d+)/$', del_session_drones, name=''),
+    url(r'^del_session_drones/(?P<id>\d+)/$', del_session_drones, name='del_session_drones'),
     url(r'^clear_session_drones/$', clear_session_drones, name='clear_session_drones'),
 
     # cookie
@@ -31,5 +30,4 @@ urlpatterns = [
     url(r'^add_session_item/(?P<key>\w+)/(?P<id>\d+)/$', add_session_item, name='add_session_item'),
     url(r'^del_session_item/(?P<key>\w+)/(?P<id>\d+)/$', del_session_item, name='del_session_item'),
     url(r'^clear_session_item/(?P<key>\w+)/$', clear_session_item, name='clear_session_item'),
-
 ]

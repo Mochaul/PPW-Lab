@@ -28,10 +28,10 @@
             <a href="#drones" aria-controls="home" role="tab" data-toggle="tab"> Drones </a>
         </li>
         <li role="presentation">
-            <a href="#soundcard" aria-controls="settings" role="tab" data-toggle="tab"> Soundcard </a>
+            <a href="#soundcards" aria-controls="settings" role="tab" data-toggle="tab"> Soundcard </a>
         </li>
         <li role="presentation">
-            <a href="#" aria-controls="settings" role="tab" data-toggle="tab"> Optical </a>
+            <a href="#opticals" aria-controls="settings" role="tab" data-toggle="tab"> Optical </a>
         </li>
     </ul>
 
@@ -40,11 +40,13 @@
         <div role="tabpanel" class="tab-pane fade in active" id="drones">
             {% include 'lab_9/tables/drones.html' %}
         </div>
-        <div role="tabpanel" class="tab-pane fade" id="soundcard">
+        <div role="tabpanel" class="tab-pane fade" id="soundcards">
             <!-- Apply the same here -->
+            {% include 'lab_9/tables/soundcards.html' %}
         </div>
-        <div role="tabpanel" class="tab-pane fade" id="optical">
+        <div role="tabpanel" class="tab-pane fade" id="opticals">
             <!-- Apply the same here -->
+            {% include 'lab_9/tables/opticals.html' %}
         </div>
     </div>
 </div>

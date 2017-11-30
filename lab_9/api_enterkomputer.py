@@ -9,3 +9,10 @@ def get_drones():
     return drones
 
 # lengkapi pemanggilan utk SOUNDCARD_API dan OPTICAL_API untuk mengerjakan CHALLENGE
+def get_soundcards():
+    soundcards = requests.get(SOUNDCARD_API)
+    return soundcards
+
+def get_opticals():
+    opticals = requests.get(OPTICAL_API)
+    return opticals
