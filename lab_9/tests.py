@@ -173,3 +173,10 @@ class Lab9UnitTest(TestCase):
 		with self.assertRaises(Exception) as context:
 			get_access_token(username, password)
 		self.assertIn("mochaul", str(context.exception))
+
+	def test_auth_param_dict(self):
+		csui_helper = CSUIhelper()
+		auth_param = csui_helper.instance.get_auth_param_dict()
+		self.assertEqual(auth_param['client_id'], csui_helper.instance.get_auth_param_dict()['client_id'])
+
+	

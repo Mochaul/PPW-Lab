@@ -29,3 +29,17 @@ def verify_user(access_token):
     response = requests.get(API_VERIFY_USER, params=parameters)
     print ("response => ", response.json())
     return response.json()
+
+def get_auth_param_dict(access_token):
+	dict = {}
+	client_id = get_client_id()
+	dict['access_token'] = access_token
+	dict['client_id'] = client_id
+	return dict
+
+def get_mahasiswa_list(access_token, page):
+	response = requests.get(API_MAHASISWA_LIST_URL,
+	                        params={"access_token": access_token, "client_id": get_client_id(), "page": page})
+	mahasiswa_list = response.json()["results"]
+	number_of_mahasiswa = response.json()["count"]
+	return [mahasiswa_list, number_of_mahasiswa]
