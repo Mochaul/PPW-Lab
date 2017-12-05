@@ -1,3 +1,8 @@
+/*styling source  : https://www.w3schools.com/css/css_align.asp
+                    http://webredox.net/demo/wp/movieme/light/
+                    https://ganool.se/
+*/
+
 body {
     background: #1A1A1A;
 }
@@ -22,17 +27,13 @@ body {
 .main-watch-later {
     margin-top: 20px;
 }
-/*styling source https://www.w3schools.com/css/css_align.asp*/
 .movie-poster img {
     display: block;
     margin: auto 50px auto auto;
 }
-
-/*styling source: http://webredox.net/demo/wp/movieme/light/*/
 td {
     padding: 0 10px 2px 0;
 }
-/*styling source: https://ganool.se/*/
 img.homethumb{
 	width: 100% !important;
     height: auto !important;
@@ -97,7 +98,6 @@ img.homethumb{
 }
 .footer {
     margin-top: 15%;
-    /*padding: 15px 10px 10px 20px;*/
     color: #ddd !important;
     border-top:1px solid #ddd;
     bottom: 0;
