@@ -1,7 +1,7 @@
 from django.conf.urls import url
 from .views import *
 
-from .custom_auth import auth_login, auth_logout
+from lab_9.custom_auth import auth_login, auth_logout
 
 urlpatterns = [
     # custom auth
