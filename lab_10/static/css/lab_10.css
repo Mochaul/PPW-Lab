@@ -6,6 +6,15 @@
 body {
     background: #1A1A1A;
 }
+.rata-tengah {
+    text-align: center;
+    margin : 20px 0 50px 0;
+}
+.judul {
+    text-transform:uppercase;
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
 .main-movie-detail {
     margin-bottom: 20px;
 }
